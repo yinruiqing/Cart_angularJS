@@ -4,33 +4,33 @@ var cartController = function ($scope) {
     $scope.cart = [
         {
             id: 1000,
-            name: 'iphone5s',
+            name: 'Apple',
             quantity: 3,
-            price: 4300
+            price: 4
         },
         {
             id: 3300,
-            name: 'iphone5',
+            name: 'Pear',
             quantity: 30,
-            price: 3300
+            price: 3
         },
         {
             id: 232,
-            name: 'imac',
+            name: 'Peach',
             quantity: 4,
-            price: 23000
+            price: 2
         },
         {
             id: 1400,
-            name: 'ipad',
+            name: 'Plum',
             quantity: 5,
-            price: 6900
+            price: 2
         }
     ];
 
 
     /**
-     * 计算购物总价
+     * calcul the total prize
      */
     $scope.totalPrice = function () {
         var total = 0;
@@ -41,7 +41,7 @@ var cartController = function ($scope) {
     }
 
     /**
-     * 计算总购买数
+     * the total quantity
      */
     $scope.totalQuantity = function () {
         var total = 0;
@@ -53,7 +53,7 @@ var cartController = function ($scope) {
 
 
     /**
-     * 找一个元素的索引
+     * find a index
      */
     var findIndex = function (id) {
         var index = -1;
@@ -70,7 +70,7 @@ var cartController = function ($scope) {
 
 
     /**
-     * 为某个产品添加一个数量
+     * add the quantity
      */
     $scope.add = function (id) {
         var index = findIndex(id);
@@ -82,7 +82,7 @@ var cartController = function ($scope) {
 
 
     /**
-     * 为某个产品减少一个数量
+     * minus the quantity
      */
     $scope.reduce = function (id) {
         var index = findIndex(id);
@@ -92,7 +92,7 @@ var cartController = function ($scope) {
             if(item.quantity > 1){
                 --item.quantity;
             }else{
-                var returnKey = confirm('是否从购物车内删除该产品!');
+                var returnKey = confirm('Do you want to delete this item!');
                 if(returnKey){
                     $scope.remove(id);
                 }
@@ -102,26 +102,25 @@ var cartController = function ($scope) {
     }
 
     /**
-     * 移除一项
+     * delete
      */
     $scope.remove = function (id) {
 
 
         var index = findIndex(id);
-        // 如果找到了那个item
+        // if we find this item
         if (index !== -1) {
             $scope.cart.splice(index, 1);
         }
 
-        // 自动做脏检查
     }
 
-    // 监听数量 如果小于 1 则让用户判断是否要删除产品
+    // watch the quantity, if it is moin que 1, ask the user if he want to delete the item
     $scope.$watch('cart',function(newValue,oldValue){
 
         angular.forEach(newValue,function(item,key){
             if(item.quantity < 1){
-                var returnKey = confirm('是否从购物车内删除该产品!');
+                var returnKey = confirm('Do you want to delete this item!');
                 if(returnKey){
                     $scope.remove(item.id);
                 }else{
